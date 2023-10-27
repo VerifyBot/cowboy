@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+
+:root {
+    --board-bg: #1F4172;
+    --text-color: #FDF0F0;
+    --secondary-bg: #F1B4BB;
+    --text-special-color: #eb76fc;
+}
+
+body {
+    background-color: #132043;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    min-height: 100vh;
+
+    /* same space between body children */
+    gap: 1rem;
+
+}
+
+/* Action buttons */
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    width: 720px;
+    height: 100px;
+}
+
+.action {
+    color: var(--text-color);
+    background-color: var(--secondary-bg);
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+    width: 120px;
+    cursor: pointer;
+}
+
+.action:disabled {
+    /* make it gray */
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+.action:hover:not(:disabled) {
+    /* darken bg color */
+    filter: brightness(1.1);
+}
+
+.action[href=""] {
+    display: none;
+}
+
+/* Connect Four board */
+
+.board {
+    background-color: #1f1f1f;
+    display: flex;
+    flex-direction: row;
+    /*position: relative;*/
+}
+
+/*.board::before,*/
+/*.board::after {*/
+/*  background-color: blue;*/
+/*  content: "";*/
+/*  height: 720px;*/
+/*  width: 20px;*/
+/*  position: absolute;*/
+/*}*/
+
+/*.board::before {*/
+/*  left: -20px;*/
+/*}*/
+
+/*.board::after {*/
+/*  right: -20px;*/
+/*}*/
+
+.column {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 5rem;
+    font-family: 'Black Ops One', cursive;
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* animation gradient */
+    background-image: linear-gradient(45deg, var(--text-special-color), #ff3f8e);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 3s ease infinite;
+}
+
+#lobbyBtn {
+    display: flex;
+    margin: 2rem auto;
+    padding: 1rem;
+
+    background-color: var(--secondary-bg) !important;
+    color: var(--text-color);
+
+    font-weight: bold;
+    font-size: 1.3rem;
+    font-family: system-ui;
+
+    border: none;
+    border-radius: 10px;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/*@media screen and (orientation: landscape) {*/
+/*    .board {*/
+/*        position: fixed;*/
+/*        width: 2.65em;*/
+/*        height: 100%;*/
+/*    }*/
+
+/*}*/
+
+
+.column:first-of-type {
+    padding-left: 10px;
+}
+
+.column:last-of-type {
+    padding-right: 10px;
+}
+
+.cell {
+    /*border-radius: 10px;*/
+    width: 80px;
+    height: 80px;
+    /*margin: 5px 0;*/
+    border-top: 5px solid var(--board-bg);
+    border-bottom: 5px solid var(--board-bg);
+}
+
+.column {
+    background-color: var(--board-bg);
+}
+
+.empty {
+    background-color: #439d43;
+}
+
+.empty[data-y="0"], .empty[data-y="6"] {
+    background-color: cornflowerblue;
+    /*background-image: url("https://im2.ezgif.com/tmp/ezgif-2-0e3a9bd81c.gif");*/
+    /*background-size: 80px 80px;*/
+}
+
+.cow, .dog, .king {
+    /* dont duplicate image */
+    background-repeat: no-repeat;
+
+    /* put in the middle */
+    background-position: center;
+}
+
+.cow {
+    background-color: orange;
+    background-image: url("https://i.imgur.com/ptBmRqL.png");
+    background-size: 65px 65px;
+    background-position-y: 12px; /* a bit down */
+}
+
+.dog {
+    background-color: #3e3838;
+    background-image: url("https://i.imgur.com/DXhnPwe.png");
+    background-size: 80px 80px;
+    background-position-y: 5px; /* a bit down */
+}
+
+.king {
+    background-color: #a3051e;
+    background-image: url("https://i.imgur.com/9lCjYQt.png");
+    background-size: 70px 70px;
+    background-position-y: 5px; /* a bit down */
+
+    /* rotate 90deg clockwise */
+    transform: rotate(90deg);
+}
+
+.king.king-flipped {
+    transform: rotate(-90deg);
+}
+
+.cell:hover:not(.empty, .opponent, .not-your-turn) {
+    cursor: pointer;
+    /* make bg color darker */
+    filter: brightness(0.8);
+}
+
+.cell.not-your-turn:hover:not(.empty, .opponent) {
+    cursor: not-allowed;
+    filter: brightness(0.8);
+}
+
+.cell.selected {
+    /* make it glow and heart beat */
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        filter: brightness(1);
+    }
+    to {
+        filter: brightness(1.3);
+    }
+}
+
+
+/* on .cell.opponent:hover modify all .cell.opponent to have a darker bg color */
+
+.cell.opponent:hover {
+    filter: grayscale(100%);
+    cursor: not-allowed;
+}
+
+.cell.possible-move {
+    background-color: whitesmoke;
+
+    /* put asterisk in the middle */
+    background-image: url("https://i.imgur.com/h1FNiXQ.png");
+    background-size: 50px 50px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+/* king aims to cow */
+.cell.possible-move.cow {
+    background-image: url("https://i.imgur.com/ofqib6W.png");
+    background-size: 65px 65px;
+
+    /* bg color animation */
+    animation: hunt-cow 1s ease-in-out infinite alternate;
+}
+
+@keyframes hunt-cow {
+    from {
+        background-color: red;
+    }
+    to {
+        background-color: darkred;
+    }
+}
+
+.possible-move:hover {
+    cursor: pointer !important;
+    filter: brightness(0.8);
+}
+
+/*.cell[data-y="0"], .cell[data-y="6"] {*/
+/*  border-bottom-color: blue;*/
+/*}*/
+
+.notifyjs-bootstrap-base {
+    max-width: 400px !important;
+}

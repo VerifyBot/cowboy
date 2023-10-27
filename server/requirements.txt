@@ -1,0 +1,4 @@
+websockets
+colorist
+prettytable
+python-box

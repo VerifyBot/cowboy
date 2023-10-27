@@ -1,0 +1,4 @@
+to enter the venv:
+```bash
+source venv/bin/activate
+```
