@@ -3,13 +3,13 @@
 
 upload_frontend() {
     echo "[UPLOADING FRONTEND] Make sure you npm run build!"
-    rsync -rav -e "ssh -i id_rsa" ./frontend/cowboy/dist/* root@donate-idf.com:/home/app
+    rsync -rav -e "ssh -i id_rsa" ./frontend/cowboy/dist/* user@ip:/home/app
     echo "[--- UPLOADED FRONTEND ---]"
 }
 
 upload_server() {
     echo "[UPLOADING SERVER]"
-    rsync -rav --exclude="__pycache__" -e "ssh -i id_rsa" ./server/* root@donate-idf.com:/home/server
+    rsync -rav --exclude="__pycache__" -e "ssh -i id_rsa" ./server/* user@ip:/home/server
     echo "[--- UPLOADED SERVER ---]"
 }
 
