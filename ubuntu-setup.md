@@ -28,8 +28,8 @@ alias python
 ```bash
 vim ~/.bashrc, and add :
 
-- alias python=python3
-- alias pip=python3 -m pip
+- alias python='python3'
+- alias pip='python3 -m pip'
   source ~/.bashrc
 ```
 
