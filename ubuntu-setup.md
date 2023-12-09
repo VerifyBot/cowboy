@@ -21,6 +21,10 @@ certbot certonly --standalone
 certbot renew --dry-run
 ```
 
+> [!NOTE]  
+> If you want a certificate for a subdomain, create it normall (ask a certificate for the subdomain, _ie: muzee.nirush.me_)
+> And after that run: `certbot --expand -d SUBDOMAIN.YOURDOMAIN,YOURDOMAIN` (_ie: ... -d muzee.nirush.me,nirush.me_) [source](https://eff-certbot.readthedocs.io/en/latest/using.html#re-creating-and-updating-existing-certificates:~:text=certbot%20%2D%2Dexpand%20%2Dd%20existing.com%2Cexample.com%2Cnewdomain.com)
+
 <p>
 alias python
 </p>
